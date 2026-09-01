@@ -1,0 +1,1 @@
+Placez ici les images PNG, JPG ou WebP de l application. Noms en minuscules, sans espaces ni accents. Exemple: sleep_logo.png
