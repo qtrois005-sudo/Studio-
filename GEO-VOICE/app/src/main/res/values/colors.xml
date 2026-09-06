@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Identité GEO VOICE : bleu technologique (localisation) + turquoise (voix/onde sonore) -->
+    <color name="geovoice_primary">#2D6CDF</color>
+    <color name="geovoice_primary_dark">#1A4FB8</color>
+    <color name="geovoice_accent">#00C2A8</color>
+    <color name="geovoice_accent_dark">#00A891</color>
+
+    <color name="geovoice_background_light">#F7F9FC</color>
+    <color name="geovoice_surface_light">#FFFFFF</color>
+    <color name="geovoice_on_surface_light">#101828</color>
+
+    <color name="geovoice_background_dark">#0E1726</color>
+    <color name="geovoice_surface_dark">#16213A</color>
+    <color name="geovoice_on_surface_dark">#EAF0FF</color>
+
+    <color name="geovoice_error">#D93025</color>
+    <color name="geovoice_success">#1EA672</color>
+    <color name="geovoice_warning">#E8A200</color>
+
+    <color name="ic_launcher_background">#0E1726</color>
+</resources>

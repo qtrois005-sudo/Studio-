@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">GEO VOICE</string>
+    <string name="app_slogan">Votre position vous parle.</string>
+
+    <string name="notif_channel_tracking">Suivi GEO VOICE</string>
+    <string name="notif_channel_tracking_desc">Notification permanente pendant le suivi de déplacement</string>
+    <string name="notif_channel_distance">Distance parcourue</string>
+    <string name="notif_channel_geography">Informations géographiques</string>
+    <string name="notif_channel_system">État du système</string>
+
+    <string name="notif_tracking_title">GEO VOICE est actif</string>
+    <string name="notif_tracking_text">Suivi de votre déplacement en cours</string>
+
+    <string name="onboarding_welcome_title">Bienvenue sur GEO VOICE</string>
+    <string name="onboarding_welcome_body">Votre assistant géographique vocal en temps réel.</string>
+    <string name="onboarding_location_title">Localisation</string>
+    <string name="onboarding_location_body">GEO VOICE utilise votre position réelle pour comprendre votre environnement. Rien n\'est deviné ni inventé.</string>
+    <string name="onboarding_background_title">Arrière-plan</string>
+    <string name="onboarding_background_body">Le suivi peut continuer quand l\'écran est verrouillé, dans les limites imposées par Android et votre appareil.</string>
+
+    <string name="permission_denied_explanation">Sans cette autorisation, GEO VOICE ne peut pas déterminer votre position. Vous pouvez l\'activer à tout moment dans les paramètres.</string>
+
+    <string name="home_start_tracking">Démarrer le suivi</string>
+    <string name="home_stop_tracking">Arrêter le suivi</string>
+    <string name="home_gps_ok">GPS disponible</string>
+    <string name="home_gps_ko">GPS indisponible</string>
+    <string name="home_internet_ok">Internet disponible</string>
+    <string name="home_internet_ko">Internet indisponible</string>
+</resources>
