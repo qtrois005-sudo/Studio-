@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GEO VOICE — Télécharger l'APK Android</title>
+<meta name="description" content="GEO VOICE, assistant vocal de géolocalisation pour Android. Téléchargez l'APK de test gratuitement — votre position vous parle.">
+<meta property="og:title" content="GEO VOICE — Télécharger l'APK Android">
+<meta property="og:description" content="Assistant vocal de géolocalisation en temps réel. Version de test, téléchargement direct.">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0E1726;
+    --surface:#16213A;
+    --surface-2:#1C2A47;
+    --ink:#EAF0FF;
+    --ink-dim:#9FB0CC;
+    --accent:#00C2A8;
+    --accent-2:#2D6CDF;
+    --warn:#E8A200;
+    --muted:#4C5875;
+    --line:rgba(234,240,255,0.10);
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:'Inter',system-ui,sans-serif;
+    line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,.wordmark{font-family:'Space Grotesk',system-ui,sans-serif;}
+  a{color:inherit;}
+  .wrap{max-width:920px;margin:0 auto;padding:0 24px;}
+  nav.top{
+    display:flex;align-items:center;justify-content:space-between;
+    padding:22px 0;
+  }
+  .wordmark{
+    display:flex;align-items:center;gap:10px;
+    font-weight:600;font-size:18px;letter-spacing:0.01em;
+  }
+  .wordmark svg{width:26px;height:26px;flex-shrink:0;}
+  .nav-link{
+    font-size:14px;color:var(--ink-dim);text-decoration:none;
+    border-bottom:1px solid transparent;
+  }
+  .nav-link:hover, .nav-link:focus-visible{color:var(--ink);border-bottom-color:var(--accent);}
+  .hero{
+    display:grid;grid-template-columns:1.1fr 0.9fr;gap:40px;
+    align-items:center;
+    padding:36px 0 64px;
+  }
+  @media (max-width:720px){
+    .hero{grid-template-columns:1fr;padding:12px 0 48px;}
+    .hero-visual{order:-1;}
+  }
+  .hero h1{
+    font-size:clamp(32px,5vw,46px);
+    font-weight:700;
+    line-height:1.08;
+    margin:0 0 18px;
+    letter-spacing:-0.01em;
+  }
+  .hero p{
+    color:var(--ink-dim);
+    font-size:17px;
+    max-width:46ch;
+    margin:0 0 28px;
+  }
+  .cta{
+    display:inline-flex;align-items:center;gap:10px;
+    background:var(--accent);color:#04211D;
+    font-weight:600;font-size:15px;
+    padding:14px 22px;border-radius:10px;
+    text-decoration:none;
+    border:1px solid var(--accent);
+  }
+  .cta:hover, .cta:focus-visible{background:#00D8BB;}
+  .cta-meta{
+    display:block;margin-top:12px;
+    font-size:13px;color:var(--ink-dim);
+  }
+  .hero-visual{
+    display:flex;justify-content:center;align-items:center;
+  }
+  .hero-visual svg{width:100%;max-width:280px;height:auto;}
+  .arc{transform-origin:64px 90px;animation:pulse 2.6s ease-in-out infinite;}
+  .arc.a2{animation-delay:0.25s;}
+  .arc.a3{animation-delay:0.5s;}
+  @keyframes pulse{
+    0%,100%{opacity:0.35;}
+    50%{opacity:1;}
+  }
+  @media (prefers-reduced-motion: reduce){
+    .arc{animation:none;opacity:0.9;}
+  }
+  section{padding:56px 0;border-top:1px solid var(--line);}
+  section h2{
+    font-size:24px;font-weight:600;margin:0 0 8px;
+  }
+  section > p.lead{
+    color:var(--ink-dim);max-width:56ch;margin:0 0 32px;
+  }
+  .steps{
+    list-style:none;margin:0;padding:0;
+    display:grid;gap:0;
+  }
+  .steps li{
+    display:grid;grid-template-columns:36px 1fr;gap:16px;
+    padding:16px 0;
+    border-top:1px solid var(--line);
+  }
+  .steps li:first-child{border-top:none;}
+  .step-num{
+    font-family:'Space Grotesk',sans-serif;
+    color:var(--accent);font-weight:600;font-size:15px;
+  }
+  .steps h3{margin:0 0 4px;font-size:16px;font-weight:600;}
+  .steps span.desc{color:var(--ink-dim);font-size:14.5px;}
+  .confidence{list-style:none;margin:0;padding:0;}
+  .confidence li{
+    display:flex;gap:16px;align-items:flex-start;
+    padding:16px 0 16px 16px;
+    border-left:3px solid var(--muted);
+    margin-bottom:14px;
+  }
+  .confidence li.high{border-left-color:var(--accent);}
+  .confidence li.medium{border-left-color:var(--warn);}
+  .confidence li b{display:block;font-size:14px;margin-bottom:4px;}
+  .confidence li q{
+    display:block;font-style:normal;color:var(--ink-dim);font-size:14.5px;
+  }
+  .status-box{
+    background:var(--surface);
+    border:1px solid var(--line);
+    border-radius:12px;
+    padding:22px 24px;
+  }
+  .status-box p{margin:0 0 14px;color:var(--ink-dim);font-size:14.5px;}
+  .status-box p:last-child{margin-bottom:0;}
+  .status-box a{color:var(--accent);text-decoration:underline;}
+  footer{
+    padding:32px 0 48px;
+    color:var(--ink-dim);
+    font-size:13px;
+    border-top:1px solid var(--line);
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <nav class="top">
+    <span class="wordmark">
+      <svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
+        <path class="arc" d="M20 6 A14 14 0 0 1 20 34" fill="none" stroke="#00C2A8" stroke-width="2" stroke-linecap="round"/>
+        <path d="M17 10c-3.3 0-6 2.7-6 6 0 4.5 6 10.5 6 10.5s6-6 6-10.5c0-3.3-2.7-6-6-6zm0 8.1c-1.16 0-2.1-.94-2.1-2.1s.94-2.1 2.1-2.1 2.1.94 2.1 2.1-.94 2.1-2.1 2.1z" fill="#EAF0FF"/>
+      </svg>
+      GEO VOICE
+    </span>
+    <a class="nav-link" href="#etat-du-projet">État du projet</a>
+  </nav>
+  <div class="hero">
+    <div>
+      <h1>Votre position vous parle.</h1>
+      <p>GEO VOICE écoute le GPS de votre téléphone et vous informe à voix haute pendant vos déplacements — sans jamais transformer une estimation en certitude.</p>
+      <a class="cta" href="https://raw.githubusercontent.com/qtrois005-sudo/Studio-/main/GEO-VOICE/app/build/outputs/apk/debug/app-debug.apk" download>
+        Télécharger l'APK
+      </a>
+      <span class="cta-meta">Android · version de test (debug) · environ 10 Mo</span>
+    </div>
+    <div class="hero-visual">
+      <svg viewBox="0 0 180 180" xmlns="http://www.w3.org/2000/svg">
+        <path class="arc a3" d="M88 24 A66 66 0 0 1 88 156" fill="none" stroke="#00C2A8" stroke-width="5" stroke-linecap="round"/>
+        <path class="arc a2" d="M88 46 A44 44 0 0 1 88 134" fill="none" stroke="#00C2A8" stroke-width="6" stroke-linecap="round"/>
+        <path class="arc" d="M88 68 A22 22 0 0 1 88 112" fill="none" stroke="#00C2A8" stroke-width="7" stroke-linecap="round"/>
+        <g transform="translate(30,42) scale(2.6)">
+          <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" fill="#EAF0FF"/>
+        </g>
+      </svg>
+    </div>
+  </div>
+  <section>
+    <h2>Comment ça marche</h2>
+    <p class="lead">Trois étapes, du lancement de l'application à la première annonce.</p>
+    <ol class="steps">
+      <li>
+        <span class="step-num">1</span>
+        <div>
+          <h3>Autorisez la localisation</h3>
+          <span class="desc">L'application explique exactement ce qu'elle utilise, avant de le demander.</span>
+        </div>
+      </li>
+      <li>
+        <span class="step-num">2</span>
+        <div>
+          <h3>Démarrez le suivi</h3>
+          <span class="desc">Une notification reste visible tant que GEO VOICE est actif.</span>
+        </div>
+      </li>
+      <li>
+        <span class="step-num">3</span>
+        <div>
+          <h3>Marchez, roulez, écoutez</h3>
+          <span class="desc">Distance parcourue et changements de lieu sont annoncés au bon moment.</span>
+        </div>
+      </li>
+    </ol>
+  </section>
+  <section>
+    <h2>Elle ne devine jamais</h2>
+    <p class="lead">Beaucoup d'applications de localisation affirment plus qu'elles ne savent. GEO VOICE évalue un niveau de confiance avant chaque annonce.</p>
+    <ul class="confidence">
+      <li class="high">
+        <div>
+          <b>Confiance haute</b>
+          <q>Vous êtes actuellement à Abobo.</q>
+        </div>
+      </li>
+      <li class="medium">
+        <div>
+          <b>Confiance moyenne</b>
+          <q>Vous êtes probablement dans cette zone.</q>
+        </div>
+      </li>
+      <li>
+        <div>
+          <b>Confiance faible</b>
+          <q>Aucune annonce — le silence plutôt qu'une supposition.</q>
+        </div>
+      </li>
+    </ul>
+  </section>
+  <section id="etat-du-projet">
+    <h2>État du projet</h2>
+    <div class="status-box">
+      <p>GEO VOICE est en développement actif. Cette version est une build de test (debug), pas encore publiée sur le Play Store — Android vous demandera d'autoriser l'installation depuis une source inconnue après le téléchargement.</p>
+      <p>Le code source est public sur <a href="https://github.com/qtrois005-sudo/Studio-/tree/main/GEO-VOICE" target="_blank" rel="noopener">GitHub</a>.</p>
+    </div>
+  </section>
+  <footer>
+    GEO VOICE — Kotlin · Jetpack Compose
+  </footer>
+</div>
+</body>
+</html>
