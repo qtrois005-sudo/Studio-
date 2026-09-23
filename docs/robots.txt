@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://qtrois005-sudo.github.io/Studio-/sitemap.xml
