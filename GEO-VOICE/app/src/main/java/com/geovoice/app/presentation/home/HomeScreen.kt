@@ -26,6 +26,7 @@ import com.geovoice.app.R
 fun HomeScreen(
     onOpenSettings: () -> Unit,
     onOpenDiagnostics: () -> Unit,
+    onOpenMap: () -> Unit,
     viewModel: HomeViewModel = viewModel()
 ) {
     val state by viewModel.uiState.collectAsState()
@@ -86,6 +87,9 @@ fun HomeScreen(
                 }
             }
 
+            OutlinedButton(onClick = onOpenMap, modifier = Modifier.fillMaxWidth()) {
+                Text("Carte")
+            }
             OutlinedButton(onClick = onOpenDiagnostics, modifier = Modifier.fillMaxWidth()) {
                 Text("Diagnostics")
             }
