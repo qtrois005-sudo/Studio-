@@ -1,3 +1,4 @@
+
 package com.geovoice.app
 
 import android.os.Bundle
@@ -19,6 +20,7 @@ import com.geovoice.app.core.permission.PermissionManager
 import com.geovoice.app.data.preferences.PreferencesRepository
 import com.geovoice.app.presentation.diagnostics.DiagnosticsScreen
 import com.geovoice.app.presentation.home.HomeScreen
+import com.geovoice.app.presentation.map.MapScreen
 import com.geovoice.app.presentation.navigation.GeoVoiceDestinations
 import com.geovoice.app.presentation.onboarding.OnboardingScreen
 import com.geovoice.app.presentation.permissions.PermissionsScreen
@@ -29,8 +31,6 @@ import kotlinx.coroutines.launch
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
-        // Splash natif Android 12+ (section 5.4) : utilise le vrai logo GEO VOICE
-        // déclaré dans Theme.GeoVoice.Splash (values/themes.xml).
         installSplashScreen()
         super.onCreate(savedInstanceState)
 
@@ -49,8 +49,6 @@ private fun GeoVoiceNavHost() {
     val scope = rememberCoroutineScope()
     val navController = rememberNavController()
 
-    // Point de départ déterminé une fois l'état d'onboarding connu, pour éviter un flash
-    // d'écran incorrect. Reste sur "splash" tant que l'état n'est pas encore lu.
     var startDestination by remember { mutableStateOf<String?>(null) }
 
     LaunchedEffect(Unit) {
@@ -93,7 +91,8 @@ private fun GeoVoiceNavHost() {
         composable(GeoVoiceDestinations.HOME) {
             HomeScreen(
                 onOpenSettings = { navController.navigate(GeoVoiceDestinations.SETTINGS) },
-                onOpenDiagnostics = { navController.navigate(GeoVoiceDestinations.DIAGNOSTICS) }
+                onOpenDiagnostics = { navController.navigate(GeoVoiceDestinations.DIAGNOSTICS) },
+                onOpenMap = { navController.navigate(GeoVoiceDestinations.MAP) }
             )
         }
         composable(GeoVoiceDestinations.SETTINGS) {
@@ -101,6 +100,9 @@ private fun GeoVoiceNavHost() {
         }
         composable(GeoVoiceDestinations.DIAGNOSTICS) {
             DiagnosticsScreen()
+        }
+        composable(GeoVoiceDestinations.MAP) {
+            MapScreen()
         }
     }
 }
