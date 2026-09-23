@@ -7,4 +7,5 @@ object GeoVoiceDestinations {
     const val HOME = "home"
     const val SETTINGS = "settings"
     const val DIAGNOSTICS = "diagnostics"
+    const val MAP = "map"
 }
