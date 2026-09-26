@@ -12,11 +12,6 @@ import kotlinx.coroutines.withContext
 import java.util.Locale
 import kotlin.coroutines.resume
 
-/**
- * Implémente le géocodage inversé réel (section 35/17). Ne retourne jamais une donnée
- * inventée : si le service ne répond pas ou ne connaît pas un niveau, le champ correspondant
- * reste `null` (voir GeographyPlace).
- */
 class GeocodingRepository(
     context: Context,
     private val timeProvider: TimeProvider
@@ -53,18 +48,22 @@ class GeocodingRepository(
         }
     }
 
-    private fun Address.toGeographyPlace(resolvedAtMillis: Long): GeographyPlace = GeographyPlace(
-        country = countryName,
-        region = adminArea,
-        city = locality,
-        // Le Geocoder Android ne distingue pas "commune" de "ville" (subAdminArea s'en
-        // rapproche parfois selon les pays, sans garantie) : exposé séparément mais peut
-        // rester équivalent à city selon les données disponibles localement.
-        commune = subAdminArea,
-        neighborhood = subLocality,
-        street = thoroughfare,
-        // Pas de source fiable de POI nommé sans Google Places API — volontairement null (P1/P2).
-        pointOfInterest = null,
-        resolvedAtMillis = resolvedAtMillis
-    )
+    private fun Address.toGeographyPlace(resolvedAtMillis: Long): GeographyPlace {
+        // featureName peut contenir le nom d'un repère local connu de la base de données
+        // du géocodeur (marché, bâtiment...), mais ce n'est pas garanti. On l'utilise
+        // seulement s'il apporte une information différente de la rue/numéro déjà connus.
+        val rawFeature = featureName?.takeIf { it.isNotBlank() }
+        val poi = rawFeature?.takeIf { it != thoroughfare && it != subThoroughfare }
+
+        return GeographyPlace(
+            country = countryName,
+            region = adminArea,
+            city = locality,
+            commune = subAdminArea,
+            neighborhood = subLocality,
+            street = thoroughfare,
+            pointOfInterest = poi,
+            resolvedAtMillis = resolvedAtMillis
+        )
+    }
 }
