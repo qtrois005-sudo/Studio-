@@ -85,7 +85,7 @@ class VoiceAssistantViewModel(application: Application) : AndroidViewModel(appli
 
     private suspend fun answerWhereAmI() {
         _state.value = VoiceAssistantState.Thinking
-        val position = locationRepository.lastKnownPosition()
+        val position = locationRepository.currentPosition() ?: locationRepository.lastKnownPosition()
 
         if (position == null) {
             val message = "Je n'ai pas encore de position fiable. Réessayez dans un instant."
