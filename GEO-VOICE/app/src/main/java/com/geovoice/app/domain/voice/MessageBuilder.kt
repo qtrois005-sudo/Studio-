@@ -3,21 +3,16 @@ package com.geovoice.app.domain.voice
 import com.geovoice.app.domain.confidence.ConfidenceLevel
 import com.geovoice.app.domain.geography.GeographyPlace
 
-/** Un seuil de distance a été franchi (section 13). */
 data class DistanceAnnouncementInput(val cumulativeKilometers: Double)
 
-/** Un résultat géographique est disponible, avec son niveau de confiance (section 19). */
 data class GeographyAnnouncementInput(
     val place: GeographyPlace,
     val confidence: ConfidenceLevel
 )
 
 /**
- * Construit les messages vocaux/textuels (section 21), en appliquant strictement la
- * règle absolue de la section 18 : ne jamais transformer une estimation en certitude.
- * - HIGH   → formulation affirmative ("Vous êtes actuellement à ...")
- * - MEDIUM → formulation prudente ("Vous êtes probablement dans cette zone.")
- * - LOW    → pas d'annonce du lieu (silence sur cette partie du message)
+ * Construit les messages vocaux/textuels (section 21), en respectant la règle
+ * absolue (section 18) : ne jamais transformer une estimation en certitude.
  */
 class MessageBuilder {
 
@@ -30,18 +25,23 @@ class MessageBuilder {
         }
     }
 
-    /** Retourne `null` si la confiance est trop faible pour justifier une annonce (section 19 : LOW). */
     fun buildGeographyMessage(input: GeographyAnnouncementInput, mode: AnnouncementMode): String? {
         val place = input.place
         return when (input.confidence) {
             ConfidenceLevel.HIGH -> {
-                val label = place.neighborhood ?: place.city ?: place.commune ?: return null
+                val cityLabel = place.city ?: place.commune ?: return null
+                val precise = buildPreciseLocationPhrase(place)
+
                 when (mode) {
-                    AnnouncementMode.SHORT -> label
-                    AnnouncementMode.STANDARD -> "Vous êtes actuellement à $label."
-                    AnnouncementMode.DETAILED -> buildDetailedLabel(place)?.let {
-                        "Vous êtes actuellement à $it."
-                    } ?: "Vous êtes actuellement à $label."
+                    AnnouncementMode.SHORT -> precise ?: cityLabel
+                    AnnouncementMode.STANDARD -> {
+                        if (precise != null) "Vous êtes à $cityLabel, $precise."
+                        else "Vous êtes actuellement à $cityLabel."
+                    }
+                    AnnouncementMode.DETAILED -> {
+                        if (precise != null) "Vous êtes à $cityLabel, précisément $precise."
+                        else "Vous êtes actuellement à $cityLabel."
+                    }
                 }
             }
             ConfidenceLevel.MEDIUM -> {
@@ -52,7 +52,6 @@ class MessageBuilder {
         }
     }
 
-    /** Combine distance + géographie dans une seule annonce si les deux surviennent ensemble (section 21). */
     fun buildCombinedMessage(
         distance: DistanceAnnouncementInput?,
         geography: GeographyAnnouncementInput?,
@@ -66,9 +65,19 @@ class MessageBuilder {
             ?.joinToString(separator = " ")
     }
 
-    private fun buildDetailedLabel(place: GeographyPlace): String? {
-        val parts = listOfNotNull(place.neighborhood, place.city ?: place.commune)
-        return parts.takeIf { it.isNotEmpty() }?.joinToString(", ")
+    /**
+     * Construit la partie "précise" de l'annonce (quartier, point de repère, rue),
+     * en ne combinant que ce qui est réellement connu — jamais d'invention.
+     */
+    private fun buildPreciseLocationPhrase(place: GeographyPlace): String? {
+        val parts = listOfNotNull(
+            place.pointOfInterest,
+            place.neighborhood,
+            place.street?.let { street ->
+                place.streetNumberLabel()?.let { number -> "$street $number" } ?: street
+            }
+        )
+        return parts.firstOrNull()
     }
 
     private fun formatKilometers(value: Double): String {
@@ -80,3 +89,5 @@ class MessageBuilder {
         }
     }
 }
+
+private fun GeographyPlace.streetNumberLabel(): String? = null
