@@ -120,6 +120,11 @@ class VoiceAssistantViewModel(application: Application) : AndroidViewModel(appli
     }
 
     private suspend fun speak(text: String) {
+        val ready = voiceEngine.awaitReady()
+        if (!ready) {
+            _state.value = VoiceAssistantState.Error("Moteur vocal indisponible.")
+            return
+        }
         voiceEngine.speak(text).first()
     }
 
