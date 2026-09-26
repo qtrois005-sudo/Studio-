@@ -6,9 +6,12 @@ import android.speech.tts.UtteranceProgressListener
 import android.speech.tts.Voice
 import java.util.Locale
 import java.util.UUID
+import kotlin.coroutines.resume
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
+import kotlinx.coroutines.suspendCancellableCoroutine
+import kotlinx.coroutines.withTimeoutOrNull
 
 sealed class VoiceEngineState {
     object Initializing : VoiceEngineState()
@@ -43,6 +46,23 @@ class VoiceEngine(context: Context) {
         }
     }
 
+    /** Attend que le moteur soit prêt (ou indisponible), avec un délai maximal, pour éviter
+     * qu'un premier appel à speak() trop précoce reste silencieux. */
+    suspend fun awaitReady(timeoutMillis: Long = 4000L): Boolean {
+        if (state != VoiceEngineState.Initializing) {
+            return state == VoiceEngineState.Ready
+        }
+        return withTimeoutOrNull(timeoutMillis) {
+            suspendCancellableCoroutine<Boolean> { continuation ->
+                readyCallbacks += {
+                    if (continuation.isActive) {
+                        continuation.resume(state == VoiceEngineState.Ready)
+                    }
+                }
+            }
+        } ?: false
+    }
+
     fun preferMaleVoice(preferMale: Boolean) {
         val engine = tts ?: return
         val voices: Set<Voice> = try {
@@ -65,7 +85,6 @@ class VoiceEngine(context: Context) {
     }
 
     fun setVolume(volume: Float) {
-        // Le volume est appliqué au moment de la lecture via les paramètres d'utterance (speak()).
         currentVolume = volume.coerceIn(0f, 1f)
     }
 
